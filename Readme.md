@@ -58,7 +58,7 @@ If you want to look at the code or run it yourself:
 
 ##  Allowed to use?
 
-I asked beforehand if I can share this project since I used hero/skill icons from the game.
+I asked beforehand if I can share this project since I used hero/skill icons from the game. (This is for now a unconfirmed statement since i wanted to try and look how to set up GitHub)
 
 ![Permission](allowed.png)
 
