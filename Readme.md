@@ -108,7 +108,4 @@ Things I want to add later:
 
 If you have ideas or want something added:
 
-Feel free to message me on Discord ^^
-                            || 
-                            \/
-                        @shinigami56
+Feel free to message me on Discord ^^ -> @shinigami56
