@@ -70,7 +70,7 @@ def availableSkills(heroChoice, skillChoice):
     return available
 
 
-    
+
 def skillUp(available):
     if not available:
         print("No skills avaible anymore!")
@@ -82,3 +82,103 @@ def skillUp(available):
     print("Choosen:", chosenSkill["name"], "-> Level:", chosenSkill["currentLevel"])
     return chosenSkill
 
+
+# Max skills Randomizer Option. Chooses 5 skills
+maxSkillList = []
+
+
+# Choice for Skill 1 basic level 0 Skill
+def firstSkillChoice(maxSkillList, skillChoice):
+    
+    skillList = []
+
+    for skill in skillChoice:
+    
+        if skill["unlockLevel"] == 0:
+        
+            skillList.append(skill)
+
+    if skillList:
+        chosenSkill = random.choice(skillList)
+        maxSkillList.append(chosenSkill)
+
+    return maxSkillList
+
+
+# Choice for Skill 2 under Level 20 to be safe to have 2 Skills
+def secondSkillChoice(maxSkillList, skillChoice):
+        
+    skillList = []
+
+    for skill in skillChoice:
+
+        if skill["unlockLevel"] < 20:
+            
+            if skill not in maxSkillList:
+
+                
+                if not skill["requirements"]:
+                    skillList.append(skill)
+
+                else:
+                    reqMet = True
+
+                    for req in skill["requirements"]:
+                        found = False
+
+                        for s in maxSkillList:
+                            if s["name"] == req:
+                                found = True
+                                break
+
+                        if not found:
+                            reqMet = False
+
+                    if reqMet:
+                        skillList.append(skill)
+
+    if skillList:
+        chosenSkill = random.choice(skillList)
+        maxSkillList.append(chosenSkill)
+    
+    return maxSkillList
+
+
+# The last 3 skills to have 5 for Max Leveling
+def thirdSkillChoice(maxSkillList, skillChoice):
+
+    skillList = []
+
+    for skill in skillChoice:
+            
+        if skill not in maxSkillList:
+
+            # Requirement Check
+            if not skill["requirements"]:
+                skillList.append(skill)
+
+            else:
+                reqMet = True
+
+                for req in skill["requirements"]:
+                    found = False
+
+                    for s in maxSkillList:
+                        if s["name"] == req:
+                            found = True
+                            break
+
+                    if not found:
+                        reqMet = False
+
+                if reqMet:
+                    skillList.append(skill)
+
+    while len(maxSkillList) < 5 and skillList:
+
+        chosenSkill = random.choice(skillList)
+        maxSkillList.append(chosenSkill)
+
+        skillList.remove(chosenSkill)
+
+    return maxSkillList

@@ -1,21 +1,23 @@
-import sys
 import random
-import PySide6
-from copy import deepcopy
-from logic import skillChoice, levelUp, availableSkills, skillUp
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QPushButton, QLabel, QVBoxLayout,
+    QWidget, QPushButton, QLabel, QVBoxLayout,
     QHBoxLayout, QFrame, QScrollArea, QFileDialog, QToolButton,
-    QSizePolicy, QMessageBox
+    QMessageBox, QComboBox
 )
 
+from logic import (
+    skillChoice,
+    levelUp,
+    availableSkills,
+    skillUp,
+    firstSkillChoice,
+    secondSkillChoice,
+    thirdSkillChoice
+)
 from hero import Heroes
-from skills import skillset
-
-#GUI done with AI bec lazy for Visuals.
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -50,6 +52,29 @@ class MainWindow(QWidget):
         self.leftLayout = QVBoxLayout(self.leftFrame)
         self.leftLayout.setContentsMargins(15, 15, 15, 15)
         self.leftLayout.setSpacing(12)
+
+        # Mode Selection
+        self.modeSelect = QComboBox()
+        self.modeSelect.addItem("Full Rando")
+        self.modeSelect.addItem("Chose Five")
+        self.modeSelect.setMinimumHeight(40)
+        self.modeSelect.setStyleSheet("""
+            QComboBox {
+                background-color: #444;
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+                border: 1px solid #666;
+                border-radius: 6px;
+                padding: 5px;
+            }
+            QComboBox QAbstractItemView {
+                background-color: #2b2b2b;
+                color: white;
+                selection-background-color: #5a5a5a;
+            }
+        """)
+        self.leftLayout.addWidget(self.modeSelect)
 
         self.btnHero = QPushButton("Randomize Hero")
         self.btnSkills = QPushButton("Randomize Skills")
@@ -147,7 +172,6 @@ class MainWindow(QWidget):
         self.btnSkills.clicked.connect(self.randomize_skills)
         self.btnExport.clicked.connect(self.export_build)
 
-    
     # -----------------------------
     # HERO BUTTON
     # -----------------------------
@@ -159,6 +183,7 @@ class MainWindow(QWidget):
 
         self.heroNameLabel.setText(self.heroChoice["name"])
         self.statusLabel.setText(
+            f"Mode: {self.modeSelect.currentText()}\n"
             f"Hero selected: {self.heroChoice['name']}\n"
             f"Internal Level: {self.heroChoice['heroLevel']}"
         )
@@ -186,26 +211,49 @@ class MainWindow(QWidget):
             QMessageBox.warning(self, "No Hero", "You need to randomize a hero first.")
             return
 
+        mode = self.modeSelect.currentText()
+
         self.heroChoice["heroLevel"] = 0
         self.skills = skillChoice(self.heroChoice)
         self.buildLog = []
 
-        while levelUp(self.heroChoice):
-            available = availableSkills(self.heroChoice, self.skills)
-            chosenSkill = skillUp(available)
+        if mode == "Full Rando":
+            while levelUp(self.heroChoice):
+                available = availableSkills(self.heroChoice, self.skills)
+                chosenSkill = skillUp(available)
 
-            if chosenSkill is None:
-                self.statusLabel.setText("No available skills left. Build stopped early.")
-                break
+                if chosenSkill is None:
+                    self.statusLabel.setText("No available skills left. Build stopped early.")
+                    break
 
-            self.buildLog.append({
-                "heroLevel": self.heroChoice["heroLevel"],
-                "skillName": chosenSkill["name"],
-                "skillLevel": chosenSkill["currentLevel"],
-                "image": chosenSkill["image"]
-            })
+                self.buildLog.append({
+                    "heroLevel": self.heroChoice["heroLevel"],
+                    "skillName": chosenSkill["name"],
+                    "skillLevel": chosenSkill["currentLevel"],
+                    "image": chosenSkill["image"]
+                })
+
+        elif mode == "Chose Five":
+
+            maxSkillList = []
+
+            maxSkillList = firstSkillChoice(maxSkillList, self.skills)
+            maxSkillList = secondSkillChoice(maxSkillList, self.skills)
+            maxSkillList = thirdSkillChoice(maxSkillList, self.skills)
+
+            
+            self.buildLog = []
+
+            for i, skill in enumerate(maxSkillList):
+                self.buildLog.append({
+                    "heroLevel": i + 1,
+                    "skillName": skill["name"],
+                    "skillLevel": skill["currentLevel"],  
+                    "image": skill["image"]
+                })
 
         self.statusLabel.setText(
+            f"Mode: {mode}\n"
             f"Hero: {self.heroChoice['name']}\n"
             f"Finished build to level {self.heroChoice['heroLevel']}\n"
             f"Total rolls: {len(self.buildLog)}"
@@ -373,6 +421,7 @@ class MainWindow(QWidget):
             return
 
         with open(filePath, "w", encoding="utf-8") as file:
+            file.write(f"Mode: {self.modeSelect.currentText()}\n")
             file.write(f"Hero: {self.heroChoice['name']}\n")
             file.write(f"Final Level: {self.heroChoice['heroLevel']}\n")
             file.write("=" * 40 + "\n")
@@ -384,5 +433,3 @@ class MainWindow(QWidget):
                 )
 
         QMessageBox.information(self, "Export complete", "Build exported successfully.")
-
-
