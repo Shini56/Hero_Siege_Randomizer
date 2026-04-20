@@ -58,7 +58,7 @@ If you want to look at the code or run it yourself:
 
 ##  Allowed to use?
 
-I asked beforehand if I can share this project since I used hero/skill icons from the game. (This is for now a unconfirmed statement since i wanted to try and look how to set up GitHub)
+I asked Octa beforehand if I can share this project since I used hero/skill icons from the game.
 
 ![Permission](allowed.png)
 
@@ -68,10 +68,12 @@ I asked beforehand if I can share this project since I used hero/skill icons fro
 
 After starting the program:
 
-### 1. Press **Randomize Hero**
+### 1. Press **The Down Arrow to open Choices**
+
+### 2. Press **Randomize Hero**
 - you will see the selected hero image
 
-### 2. Press **Randomize Skills**
+### 3. Press **Randomize Skills**
 
 On the right side you will see:
 - all generated skills in order
@@ -97,7 +99,6 @@ Things I want to add later:
 - Import exported builds (right now only export exists)
 - More randomization options:
   - randomize specific level range
-  - randomize X amount of skills (like 5?)
   - choose hero manually + random skills
 - better UI / visuals
 
@@ -108,3 +109,6 @@ Things I want to add later:
 If you have ideas or want something added:
 
 Feel free to message me on Discord ^^
+                            || 
+                            \/
+                        @shinigami56
