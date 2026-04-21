@@ -96,6 +96,6 @@ Things I want to add later:
 
 If you have ideas or want something added:
 
-Leave a comment under my YT Video:
+Leave a comment under my YT Video: https://youtu.be/PR58an2zDHg
 
 Feel free to message me on Discord ^^
