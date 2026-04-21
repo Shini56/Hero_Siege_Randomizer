@@ -20,8 +20,6 @@ It lets you:
 - choose a random hero
 - generate random skill builds
 
-Right now it can only generate a full random build from level 1–100, but I plan to keep working on it.
-
  Important:  
 This tool does **NOT** connect to Hero Siege files in any way.  
 It’s just a visual randomizer using hero + skill data.
@@ -30,24 +28,12 @@ It’s just a visual randomizer using hero + skill data.
 
 ## Download
 
-### Option 1
-For people who just want to use it:
-
 - Download `HeroSiegeRando.zip`
 - Extract it
 - Open the folder
 - Start `main.exe`
 
 Done 
-
----
-
-### Option 2 (Code Version)
-
-If you want to look at the code or run it yourself:
-
-- use the provided files
-
 ---
 
 ## Preview
@@ -59,6 +45,8 @@ If you want to look at the code or run it yourself:
 ##  Allowed to use?
 
 I asked Octa beforehand if I can share this project since I used hero/skill icons from the game.
+Big Thank you for allowing me to use the skill icons!
+
 
 ![Permission](allowed.png)
 
@@ -108,4 +96,6 @@ Things I want to add later:
 
 If you have ideas or want something added:
 
-Feel free to message me on Discord ^^ -> @shinigami56
+Leave a comment under my YT Video:
+
+Feel free to message me on Discord ^^
