@@ -59,6 +59,7 @@ If you want to look at the code or run it yourself:
 ##  Allowed to use?
 
 I asked Octa beforehand if I can share this project since I used hero/skill icons from the game.
+(Cant add new pic atm will update when home in a few Hours)
 
 ![Permission](allowed.png)
 
